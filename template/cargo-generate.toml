@@ -1,0 +1,34 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+include = ["*"]
+
+[conditional.'license != "mit" && license != "both"']
+ignore = ["LICENSE-MIT"]
+
+[conditional.'license != "apache" && license != "both"']
+ignore = ["LICENSE-APACHE"]
+
+[placeholders.gh-username]
+type = "string"
+prompt = "GitHub username (or organization)?"
+regex = "^[A-Za-z0-9][A-Za-z0-9-]{0,37}[A-Za-z0-9]$"
+
+[placeholders.license]
+type = "string"
+prompt = "Which (if any) FOSS license to use?"
+choices = ["mit", "apache", "both", "none"]
+default = "both"
+
+[placeholders.protect-main-branch]
+type = "bool"
+prompt = "Forbid commiting to main branch directly?"
+default = false
+
+[placeholders.project-description]
+type = "string"
+prompt = "Project description?"
+
+[placeholders.nightly]
+type = "bool"
+prompt = "Nightly channel?"
+default = false
