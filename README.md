@@ -3,7 +3,7 @@ A template for your next Rust project.
 
 To start coding run:
 ```bash
-cargo generate tomkarw/opinionated-rust-template
+cargo generate MilhoNerfado/template-rs
 ```
 
 Only requires `just` to bootstrap all tools and configuration:
