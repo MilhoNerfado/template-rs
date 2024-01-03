@@ -1,16 +1,20 @@
 use std::path::PathBuf;
 
-use lazy_static::lazy_static;
 use directories::ProjectDirs;
+use lazy_static::lazy_static;
 
 lazy_static! {
-  pub static ref PROJECT_NAME: String = env!("CARGO_CRATE_NAME").to_uppercase().to_string();
-  pub static ref DATA_FOLDER: Option<PathBuf> =
-    std::env::var(format!("{}_DATA", PROJECT_NAME.clone())).ok().map(PathBuf::from);
-  pub static ref CONFIG_FOLDER: Option<PathBuf> =
-    std::env::var(format!("{}_CONFIG", PROJECT_NAME.clone())).ok().map(PathBuf::from);
-  pub static ref LOG_ENV: String = format!("{}_LOGLEVEL", PROJECT_NAME.clone());
-  pub static ref LOG_FILE: String = format!("{}.log", env!("CARGO_PKG_NAME"));
+    pub static ref PROJECT_NAME: String = env!("CARGO_CRATE_NAME").to_uppercase().to_string();
+    pub static ref DATA_FOLDER: Option<PathBuf> =
+        std::env::var(format!("{}_DATA", PROJECT_NAME.clone()))
+            .ok()
+            .map(PathBuf::from);
+    pub static ref CONFIG_FOLDER: Option<PathBuf> =
+        std::env::var(format!("{}_CONFIG", PROJECT_NAME.clone()))
+            .ok()
+            .map(PathBuf::from);
+    pub static ref LOG_ENV: String = format!("{}_LOGLEVEL", PROJECT_NAME.clone());
+    pub static ref LOG_FILE: String = format!("{}.log", env!("CARGO_PKG_NAME"));
 }
 
 fn project_directory() -> Option<ProjectDirs> {

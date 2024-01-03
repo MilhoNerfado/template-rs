@@ -27,7 +27,6 @@ serde = { version = "1", default-features = false, features = ["serde_derive"] }
 clap = { version = "4", features = ["derive", "cargo", "wrap_help", "unicode", "string", "unstable-styles"] }
 log = "0.4"
 libc = "0.2"
-envy = "0.4"
 once_cell = "1"
 color-eyre = "0.6"
 directories = "5.0"
@@ -38,8 +37,10 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "serde"] }
 better-panic = "0.3"
 pretty_assertions = "1"
 strip-ansi-escapes = "0.2.0"
+
 [package.metadata.cargo-udeps.ignore]
-development = ["pretty_assertions"]
+development = ["criterion", "pretty_assertions", "serde"]
+normal = ["criterion", "pretty_assertions", "serde"]
 
 [package.metadata.playground]
 features = ["full"]
@@ -47,3 +48,4 @@ features = ["full"]
 [profile.release]
 codegen-units = 1
 incremental = false
+

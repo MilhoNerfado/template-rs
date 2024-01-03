@@ -1,6 +1,6 @@
 [values]
-gh-username = "tomkarw"
+gh-username = "MilhoNerfado"
 protect-main-branch = true
-project-description = "Opinionated Rust template for your next project"
+project-description = "My personal Rust template"
 nightly = false
 license = "both"

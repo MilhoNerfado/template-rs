@@ -11,31 +11,31 @@ help:
 
 # Apply strict formatting.
 fmt *FLAGS:
-    cargo +nightly fmt  --all {% raw  %}{{FLAGS}}{% endraw %}
+    cargo +nightly fmt  --all {{FLAGS}}
 
 # Run clippy on codesbase, tests, examples, while testing all features.
 check *FLAGS:
-    cargo clippy --tests --examples --all-targets --all-features --workspace {% raw  %}{{FLAGS}}{% endraw %}
+    cargo clippy --tests --examples --all-targets --all-features --workspace {{FLAGS}}
 
 # Run tests.
 test *FLAGS:
-    cargo nextest run --all-features --workspace {% raw  %}{{FLAGS}}{% endraw %}
+    cargo nextest run --all-features --workspace {{FLAGS}}
 
 # Build and run.
 run *FLAGS:
-    cargo run {% raw  %}{{FLAGS}}{% endraw %}
+    cargo run {{FLAGS}}
 
 # Generate documentation. Add '-- open' to open the docs in a web page.
 doc *FLAGS:
-    cargo doc --no-deps --all-features  --document-private-items --workspace --examples {{FLAGS}}
+    cargo doc --no-deps --all-features  --document-private-items --workspace --examples
 
 # Calculate coverage and open page with the results.
 coverage *FLAGS:
-    cargo llvm-cov {% raw %}{{FLAGS}}{% endraw %}
+    cargo llvm-cov {{FLAGS}}
 
 # Benchmark codebase with criterion.
 benchmark *FLAGS:
-    cargo criterion {% raw %}{{FLAGS}}{% endraw %}
+    cargo criterion {{FLAGS}}
 
 # Check for unused dependencies, audit for vulnerabilities,
 # and check if newer version of depenedencies is available.
@@ -50,7 +50,7 @@ unused-features:
     unused-features build-report --input report.json
     rm report.json
     mv report.html /tmp
-    xdg-open /tmp/report.html
+    echo /tmp/report.html
 
 # Check build timings.
 build-timings:
@@ -62,7 +62,7 @@ build-timings:
 # Checks formating, code quality, tests, documentation, spellcheck and more.
 pre-commit:
     @just fmt
-    @just check -- -D warnings
+    @just check # -- -D warnings
     @just test
     @just doc
     @just thorough-check

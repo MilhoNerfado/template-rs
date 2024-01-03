@@ -1,15 +1,21 @@
 use color_eyre::eyre::Result;
 use tracing_error::ErrorLayer;
-use tracing_subscriber::{self, prelude::__tracing_subscriber_SubscriberExt, util::SubscriberInitExt, Layer};
+use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
+use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::{self, Layer};
 
-use super::extra::{LOG_FILE, LOG_ENV, get_data_dir, get_config_dir};
+use super::extra::{get_config_dir, get_data_dir, LOG_ENV, LOG_FILE};
 
 const VERSION_MESSAGE: &str =
-    concat!(env!("CARGO_PKG_VERSION"), "-", env!("VERGEN_GIT_DESCRIBE"), " (", env!("VERGEN_BUILD_DATE"), ")");
+// concat!(env!("CARGO_PKG_VERSION"), "-", env!("VERGEN_GIT_DESCRIBE"), " (", env!("VERGEN_BUILD_DATE"), ")");
+    env!("CARGO_PKG_VERSION");
 
 pub fn initialize_panic_handler() -> Result<()> {
     let (panic_hook, eyre_hook) = color_eyre::config::HookBuilder::default()
-        .panic_section(format!("This is a bug. Consider reporting it at {}", env!("CARGO_PKG_REPOSITORY")))
+        .panic_section(format!(
+            "This is a bug. Consider reporting it at {}",
+            env!("CARGO_PKG_REPOSITORY")
+        ))
         .capture_span_trace_by_default(false)
         .display_location_section(false)
         .display_env_section(false)
@@ -53,12 +59,15 @@ pub fn initialize_logging() -> Result<()> {
         .with_target(false)
         .with_ansi(false)
         .with_filter(tracing_subscriber::filter::EnvFilter::from_default_env());
-    tracing_subscriber::registry().with(file_subscriber).with(ErrorLayer::default()).init();
+    tracing_subscriber::registry()
+        .with(file_subscriber)
+        .with(ErrorLayer::default())
+        .init();
     Ok(())
 }
 
-/// Similar to the `std::dbg!` macro, but generates `tracing` events rather
-/// than printing to stdout.
+/// Similar to the `std::dbg!` macro, but generates `tracing` events rather than
+/// printing to `stdout`.
 ///
 /// By default, the verbosity level for the generated events is `DEBUG`, but
 /// this can be customized.
