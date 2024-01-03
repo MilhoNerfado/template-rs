@@ -40,12 +40,3 @@ features = ["full"]
 [profile.release]
 codegen-units = 1
 incremental = false
-
-[profile.bench]
-codegen-units = 1
-incremental = false
-
-[[bench]]
-name = "benches"
-harness = false
-required-features = ["full"]
